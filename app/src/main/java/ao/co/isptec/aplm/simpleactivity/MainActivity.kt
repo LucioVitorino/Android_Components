@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,11 +22,30 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val botaoIniciarService = findViewById<Button>(R.id.botaoIniciarService);
         val botaoAbri = findViewById<Button>(R.id.botaoAbrirSegunda);
+        val botaoPararService = findViewById<Button>(R.id.botaoPararService);
         botaoAbri.setOnClickListener {
             val intent = Intent(this, SecondActivity::class.java);
             startActivity(intent);
         }
+
+
+        botaoIniciarService.setOnClickListener {
+            Log.i("MainActivity", "Botão Iniciar Service pressionado")
+            val intent = Intent(
+                this, MyService::class.java
+            )
+            startService(intent);
+        }
+
+        botaoPararService.setOnClickListener {
+            Log.i("MainActivity", "Botão Parar Service pressionado")
+            val intent = Intent(this, MyService::class.java);
+            stopService(intent);
+        }
+
         Log.i("MainActivity", "OnCreate");
     }
 
