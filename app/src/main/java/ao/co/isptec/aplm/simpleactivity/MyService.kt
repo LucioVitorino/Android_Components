@@ -2,6 +2,7 @@ package ao.co.isptec.aplm.simpleactivity
 
 import android.app.Service
 import android.content.Intent
+import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import kotlin.concurrent.thread
@@ -9,6 +10,9 @@ import kotlin.concurrent.thread
 class MyService : Service() {
 
     private var workerThread: Thread? = null;
+    @Volatile
+    var contador = 0
+        private set
     override fun onCreate()
     {
         super.onCreate();
@@ -23,8 +27,10 @@ class MyService : Service() {
         }
         workerThread = Thread{
             try {
-                for (i in 1..10) {
-                    Log.i("WorkerThread", "Contagem: $i");
+                for (i in 1..100) {
+                    contador = i
+
+                    Log.i("WorkerThread", "Contagem: $contador")
                     Thread.sleep(1000);
                 }
                 Log.i("WorkerThread", "Contagem terminada!");
@@ -44,7 +50,18 @@ class MyService : Service() {
         Log.i("MyService", "onDestroy: Serviço destruído!");
     }
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return (null);
+    private val binder = LocalBinder();
+    override fun onBind(intent: Intent?): IBinder {
+        return (binder);
+    }
+
+    inner class LocalBinder : Binder(){
+        fun getService(): MyService{
+            return this@MyService;
+        }
+    }
+
+    fun pararContagem() {
+        workerThread?.interrupt()
     }
 }

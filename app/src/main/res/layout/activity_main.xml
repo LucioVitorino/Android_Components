@@ -48,4 +48,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
+    <TextView
+        android:id="@+id/textoContador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contador: 0"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/botaoPararService"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:id="@+id/botaoConsultarContador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consultar contador"
+        app:layout_constraintTop_toBottomOf="@id/textoContador"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
